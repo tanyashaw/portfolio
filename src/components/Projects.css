@@ -1,0 +1,159 @@
+.projects {
+  background: transparent;
+  position: relative;
+}
+
+.projects__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s12);
+  align-items: end;
+  margin-bottom: var(--s12);
+}
+
+@media (max-width: 768px) {
+  .projects__header {
+    grid-template-columns: 1fr;
+    gap: var(--s6);
+  }
+}
+
+.projects__header h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.projects__subtitle {
+  max-width: 48ch;
+}
+
+/* ====================================================
+   Interactive 6-Month Timeline Roadmap
+   ==================================================== */
+.timeline {
+  position: relative;
+  margin-bottom: var(--s16);
+  padding: var(--s6);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+}
+
+.timeline__track {
+  position: absolute;
+  top: 38px;
+  left: var(--s6);
+  right: var(--s6);
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, #FFD700 100%);
+  opacity: 0.25;
+  z-index: 0;
+}
+
+.timeline__nodes {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+  padding-bottom: var(--s2);
+}
+
+.timeline__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--s3) var(--s5);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex: 1;
+  min-width: 130px;
+}
+
+.timeline__node:hover {
+  border-color: var(--node-color, var(--accent));
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+.timeline__node--active {
+  border-color: var(--node-color, var(--accent));
+  background: var(--bg-card-hover);
+  box-shadow: 0 4px 20px rgba(255, 77, 135, 0.15);
+  color: var(--text-primary);
+}
+
+.timeline__node-dot {
+  font-size: 1.1rem;
+}
+
+.timeline__node-label {
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.timeline__node-sub {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+/* Phase detail summary card */
+.timeline__phase-detail {
+  margin-top: var(--s6);
+}
+
+.timeline__phase-card {
+  background: rgba(255, 77, 135, 0.04);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--s5) var(--s6);
+}
+
+.timeline__phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  margin-bottom: var(--s3);
+  flex-wrap: wrap;
+}
+
+.timeline__phase-badge {
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid currentColor;
+}
+
+.timeline__phase-desc {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--s3);
+}
+
+.timeline__phase-tech {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: 0.8125rem;
+}
+
+.projects__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s24);
+}

@@ -1,0 +1,187 @@
+/* ====================================================
+   3D Background — fixed behind the entire site
+   ==================================================== */
+
+.bg3d {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Ensure main sections float over background while Contact/Footer cover it */
+main,
+nav {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- PERSPECTIVE GRID ---- */
+.bg3d__scene {
+  position: absolute;
+  bottom: 0;
+  left: -30%;
+  right: -30%;
+  height: 55vh;
+  perspective: 400px;
+  perspective-origin: 50% 0%;
+}
+
+.bg3d__grid {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(72deg);
+  transform-origin: center top;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 140, 248, 0.12) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: grid-scroll 6s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.6) 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.6) 70%, transparent 100%);
+}
+
+@keyframes grid-scroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 70px; }
+}
+
+/* ---- WIREFRAME CUBES ---- */
+.bg3d__cube-wrap {
+  position: absolute;
+  perspective: 600px;
+  animation: cube-float linear infinite;
+}
+
+@keyframes cube-float {
+  0%   { transform: translateY(0px)   rotate(0deg); }
+  25%  { transform: translateY(-18px) rotate(90deg); }
+  50%  { transform: translateY(-6px)  rotate(180deg); }
+  75%  { transform: translateY(-22px) rotate(270deg); }
+  100% { transform: translateY(0px)   rotate(360deg); }
+}
+
+.bg3d__cube {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: cube-spin linear infinite;
+  animation-duration: inherit;
+  animation-delay: inherit;
+}
+
+@keyframes cube-spin {
+  0%   { transform: rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+  33%  { transform: rotateX(120deg) rotateY(60deg)  rotateZ(45deg); }
+  66%  { transform: rotateX(240deg) rotateY(120deg) rotateZ(90deg); }
+  100% { transform: rotateX(360deg) rotateY(180deg) rotateZ(135deg); }
+}
+
+.bg3d__face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.02);
+}
+
+.bg3d__face--front  { border-color: rgba(56, 189, 248, 0.35); }
+.bg3d__face--back   { border-color: rgba(129, 140, 248, 0.25); }
+.bg3d__face--right  { border-color: rgba(56, 189, 248, 0.28); }
+.bg3d__face--left   { border-color: rgba(129, 140, 248, 0.22); }
+.bg3d__face--top    { border-color: rgba(125, 211, 252, 0.30); background: rgba(56, 189, 248, 0.04); }
+.bg3d__face--bottom { border-color: rgba(129, 140, 248, 0.20); }
+
+/* ---- FLOATING STARS ---- */
+.bg3d__star {
+  position: absolute;
+  animation: bg-star-pulse ease-in-out infinite alternate;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+@keyframes bg-star-pulse {
+  0%   { transform: translateY(0px) scale(0.9) rotate(0deg); opacity: 0.4; }
+  50%  { transform: translateY(-12px) scale(1.1) rotate(180deg); opacity: 0.8; }
+  100% { transform: translateY(0px) scale(0.9) rotate(360deg); opacity: 0.4; }
+}
+
+/* ---- AMBIENT GLOW SPOTS ---- */
+.bg3d__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.bg3d__glow--1 {
+  width: 550px;
+  height: 550px;
+  top: 5%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  animation: glow-shift-1 12s ease-in-out infinite;
+}
+
+.bg3d__glow--2 {
+  width: 450px;
+  height: 450px;
+  top: 20%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.22) 0%, transparent 70%);
+  animation: glow-shift-2 15s ease-in-out infinite;
+}
+
+.bg3d__glow--3 {
+  width: 350px;
+  height: 350px;
+  bottom: 10%;
+  left: 40%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+  animation: glow-shift-3 10s ease-in-out infinite;
+}
+
+@keyframes glow-shift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(40px, 60px) scale(1.1); }
+}
+@keyframes glow-shift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-50px, 30px) scale(1.15); }
+}
+@keyframes glow-shift-3 {
+  0%, 100% { transform: translate(0, 0); }
+  33%       { transform: translate(30px, -20px); }
+  66%       { transform: translate(-20px, 30px); }
+}
+
+/* ---- LIGHT THEME OVERRIDES ---- */
+[data-theme="light"] .bg3d__grid {
+  background-image:
+    linear-gradient(rgba(2, 132, 199, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+}
+
+[data-theme="light"] .bg3d__face {
+  border-color: rgba(2, 132, 199, 0.25);
+  background: rgba(2, 132, 199, 0.03);
+}
+
+[data-theme="light"] .bg3d__glow--1 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.18) 0%, transparent 70%);
+  opacity: 0.4;
+}
+[data-theme="light"] .bg3d__glow--2 {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  opacity: 0.35;
+}
+[data-theme="light"] .bg3d__glow--3 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+[data-theme="light"] .bg3d__star {
+  opacity: 0.5;
+}
