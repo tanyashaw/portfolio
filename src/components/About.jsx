@@ -41,12 +41,12 @@ export default function About() {
         <div className="about__layout">
           {/* Left — heading */}
           <div className="about__left">
-            <ScrollReveal delay={100}>
-              <h2 className="section-heading about__heading">
-                The person<br />
-                <em>behind the projects.</em>
-              </h2>
-            </ScrollReveal>
+          <ScrollReveal delay={100} direction="left">
+            <h2 className="section-heading about__heading">
+              The person<br />
+              <em>behind the projects.</em>
+            </h2>
+          </ScrollReveal>
 
             {/* Stats */}
             <ScrollReveal delay={200}>
@@ -64,7 +64,7 @@ export default function About() {
           {/* Right — statements */}
           <div className="about__right">
             {statements.map(({ label, text }, i) => (
-              <ScrollReveal key={label} delay={i * 80}>
+              <ScrollReveal key={label} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
                 <div className="about__statement">
                   <span className="about__statement-num label label--accent">{label}</span>
                   <p className="body-text body-text--large">{text}</p>

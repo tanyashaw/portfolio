@@ -34,30 +34,6 @@ export default function Footer() {
           Built with React · Designed with intention
         </p>
 
-        {/* Right — links */}
-        <div className="footer__links">
-          <a
-            href="https://github.com/tanyashaw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer__link"
-            aria-label="GitHub"
-          >
-            github.com/tanyashaw
-          </a>
-          <a
-            href="https://linkedin.com/in/tanyashaw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer__link"
-            aria-label="LinkedIn"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:tanyashaw@virtualemployee.com" className="footer__link" aria-label="Email">
-            tanyashaw@virtualemployee.com
-          </a>
-        </div>
       </div>
     </footer>
   );

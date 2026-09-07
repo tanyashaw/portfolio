@@ -135,14 +135,10 @@ export default function ProjectCard({ project, index }) {
 
           <ScrollReveal delay={250}>
             <div className="project-card__links">
-              {project.demo !== "#" ? (
+              {project.demo !== "#" && (
                 <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-pill" style={{ fontSize: "0.75rem", padding: "0.5rem 1.25rem" }}>
                   Live Demo ↗
                 </a>
-              ) : (
-                <span className="btn-bracket project-card__link--placeholder">
-                  {project.isPowerBI ? "Power BI Interactive Report" : "Internship Project"}
-                </span>
               )}
             </div>
           </ScrollReveal>

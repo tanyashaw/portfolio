@@ -15,7 +15,7 @@ export default function Nav() {
 
   // Theme state — persist in localStorage
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("portfolio-theme") || "dark";
+    return localStorage.getItem("portfolio-theme") || "light";
   });
 
   useEffect(() => {

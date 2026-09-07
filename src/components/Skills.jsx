@@ -73,9 +73,10 @@ export default function Skills() {
           </div>
 
           {skillGroups.map(({ category, plain, technologies }, i) => (
-            <ScrollReveal key={category} delay={i * 60}>
+            <ScrollReveal key={category} delay={i * 60} direction={i % 2 === 0 ? "left" : "up"}>
               <div className="skills__row">
                 <div className="skills__row-category">
+                  <span className="skills__category-dot" aria-hidden="true" />
                   <span className="skills__category-text">{category}</span>
                 </div>
                 <div className="skills__row-plain">
@@ -90,13 +91,6 @@ export default function Skills() {
             </ScrollReveal>
           ))}
         </div>
-
-        {/* Footnote */}
-        <ScrollReveal delay={200}>
-          <p className="skills__footnote label">
-            Depth is demonstrated through projects below, not ratings or percentages.
-          </p>
-        </ScrollReveal>
       </div>
     </section>
   );

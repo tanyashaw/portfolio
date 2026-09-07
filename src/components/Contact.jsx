@@ -17,17 +17,17 @@ export default function Contact() {
         <div className="contact__layout">
           {/* Left — headline */}
           <div className="contact__left">
-            <ScrollReveal delay={100}>
-              <h2 className="section-heading contact__heading">
-                Contact.
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <p className="body-text contact__sub">
-                Have a project, opportunity, or idea?<br />
-                I'd like to hear about it.
-              </p>
-            </ScrollReveal>
+          <ScrollReveal delay={100} direction="left">
+            <h2 className="section-heading contact__heading">
+              Contact.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={200} direction="left">
+            <p className="body-text contact__sub">
+              Have a project, opportunity, or idea?<br />
+              I'd like to hear about it.
+            </p>
+          </ScrollReveal>
           </div>
 
           {/* Right — contact details */}
@@ -42,15 +42,9 @@ export default function Contact() {
               </div>
             </ScrollReveal>
 
-            {/* Divider */}
-            <div className="divider" />
-
             {/* Social links — labels only, URLs hidden */}
             <ScrollReveal delay={250}>
               <div className="contact__socials">
-                <span className="label" style={{ marginBottom: "var(--s4)", display: "block" }}>
-                  Find me on
-                </span>
                 <div className="contact__social-links">
                   <a
                     href="https://github.com/tanyashaw"
@@ -64,7 +58,7 @@ export default function Contact() {
                     <span className="contact__social-arrow" aria-hidden="true">↗</span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/tanyashaw"
+                    href="https://www.linkedin.com/in/tanya-shaw/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="contact__social-link"

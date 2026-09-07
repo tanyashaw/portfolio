@@ -1,3 +1,7 @@
+/* ============================================================
+   HERO — Two-Column Layout with Premium Photo Frame
+   ============================================================ */
+
 .hero {
   position: relative;
   min-height: 100svh;
@@ -8,7 +12,7 @@
   background: transparent;
 }
 
-/* Glowing background orbs */
+/* ── Glowing background orbs ── */
 .hero__orb {
   position: absolute;
   border-radius: 50%;
@@ -21,7 +25,7 @@
   height: 600px;
   top: -150px;
   right: -100px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%);
   animation: orb-drift-1 8s ease-in-out infinite;
 }
 
@@ -39,25 +43,51 @@
   height: 300px;
   top: 40%;
   left: 35%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
   animation: orb-drift-3 12s ease-in-out infinite;
 }
 
 @keyframes orb-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 40px) scale(1.05); }
-}
-@keyframes orb-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, -30px) scale(1.08); }
-}
-@keyframes orb-drift-3 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(20px, -20px); }
-  66% { transform: translate(-20px, 15px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-30px, 40px) scale(1.05);
+  }
 }
 
-/* Floating shapes */
+@keyframes orb-drift-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+}
+
+@keyframes orb-drift-3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  33% {
+    transform: translate(20px, -20px);
+  }
+
+  66% {
+    transform: translate(-20px, 15px);
+  }
+}
+
+/* ── Floating deco shapes ── */
 .hero__deco-shape {
   position: absolute;
   animation: wobble var(--dur, 6s) ease-in-out infinite;
@@ -67,16 +97,27 @@
 }
 
 @keyframes wobble {
-  0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
-  50% { transform: translateY(-18px) rotate(8deg) scale(1.08); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(8deg) scale(1.08);
+  }
 }
 
-/* Content */
+/* ── Two-column content ── */
 .hero__content {
   position: relative;
   z-index: 2;
   padding-top: 8rem;
   padding-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: var(--s16);
+  align-items: center;
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -90,7 +131,12 @@
   transform: translateY(0);
 }
 
-/* Meta pills */
+/* ── Text column ── */
+.hero__text {
+  will-change: transform;
+}
+
+/* ── Meta pills ── */
 .hero__meta {
   display: flex;
   align-items: center;
@@ -110,6 +156,16 @@
   color: var(--accent);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateX(-16px);
+}
+
+.hero__content--visible .hero__pill-1 {
+  animation: fade-left 0.6s var(--ease-out) 350ms forwards;
+}
+
+.hero__content--visible .hero__pill-2 {
+  animation: fade-left 0.6s var(--ease-out) 480ms forwards;
 }
 
 .hero__meta-pill--2 {
@@ -118,16 +174,17 @@
   color: var(--accent-2);
 }
 
-/* Heading */
+.hero__meta-pill--3 {
+  border-color: rgba(129, 140, 248, 0.35);
+  background: rgba(129, 140, 248, 0.08);
+  color: #818CF8;
+}
+
+/* ── Heading ── */
 .hero__heading {
   display: flex;
   flex-direction: column;
   margin-bottom: var(--s6);
-  /* 3D depth text shadow */
-  text-shadow:
-    2px 2px 0px rgba(56, 189, 248, 0.3),
-    4px 4px 0px rgba(56, 189, 248, 0.15),
-    6px 6px 0px rgba(129, 140, 248, 0.1);
 }
 
 .hero__heading-line {
@@ -136,26 +193,56 @@
   line-height: 0.95;
 }
 
-.hero__heading-accent {
-  color: var(--accent);
-  text-shadow:
-    2px 2px 0px rgba(129, 140, 248, 0.4),
-    4px 4px 0px rgba(129, 140, 248, 0.2),
-    6px 6px 0px rgba(56, 189, 248, 0.1);
+.hero__name-gradient {
+  background: linear-gradient(135deg,
+      var(--accent) 0%,
+      var(--accent-2) 40%,
+      #34D399 70%,
+      var(--accent) 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 5s ease infinite;
 }
 
+.hero__name-second {
+  animation-delay: 1s;
+}
+
+/* Typewriter */
 .hero__heading-sub {
   display: block;
   font-family: var(--font-sans);
   font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 600;
   color: var(--accent-2);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-top: var(--s3);
-  text-shadow: none;
+  min-height: 1.8em;
 }
 
-/* Tagline */
+.hero__cursor {
+  display: inline-block;
+  color: var(--accent);
+  animation: cursor-blink 0.9s step-end infinite;
+  margin-left: 2px;
+  font-weight: 300;
+}
+
+@keyframes cursor-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Tagline ── */
 .hero__tagline {
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
@@ -165,7 +252,7 @@
   max-width: 40ch;
 }
 
-/* CTAs */
+/* ── CTAs ── */
 .hero__cta {
   display: flex;
   align-items: center;
@@ -173,56 +260,234 @@
   flex-wrap: wrap;
 }
 
-.hero__cta-secondary { font-size: 0.8125rem; }
+.hero__cta-secondary {
+  font-size: 0.8125rem;
+}
 
-/* Bottom info row */
-.hero__bottom {
+.hero__btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__btn-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 65%);
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.hero__btn-primary:hover .hero__btn-shimmer {
+  transform: translateX(100%);
+}
+
+.hero__btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 40px var(--accent-glow);
+}
+
+/* ══════════════════════════════════════
+   PHOTO COLUMN
+   ══════════════════════════════════════ */
+.hero__photo-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__photo-frame {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  flex-shrink: 0;
+  animation: photo-float 6s ease-in-out infinite;
+}
+
+@keyframes photo-float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+/* Rotating gradient ring */
+.hero__photo-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+      #38BDF8, #818CF8, #34D399, #38BDF8);
+  animation: ring-spin 6s linear infinite;
+  z-index: 0;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glow blob */
+.hero__photo-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  animation: photo-glow-pulse 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes photo-glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* Actual photo */
+.hero__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: 50%;
+  border: 4px solid var(--bg-primary);
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ── Scroll cue ── */
+.hero__scroll-cue {
   position: absolute;
   bottom: var(--s8);
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 1s var(--ease-out) 700ms;
-}
-
-.hero__bottom--visible { opacity: 1; }
-
-.hero__info {
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: var(--s1);
+  align-items: center;
+  gap: var(--s2);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out) 1.4s;
 }
 
-.hero__info-value {
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  color: var(--text-primary);
+.hero__scroll-cue--visible {
+  opacity: 1;
 }
 
-.hero__info-link {
-  color: var(--accent);
-  transition: color var(--duration-base) var(--ease-out);
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scroll-line 2s ease-in-out infinite;
 }
-.hero__info-link:hover { color: var(--accent-light); }
 
-.hero__scroll-indicator {
+@keyframes scroll-line {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scaleY(0.6);
+    opacity: 1;
+  }
+}
+
+.hero__scroll-text {
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
   color: var(--text-muted);
-  animation: scroll-bounce 2.5s ease-in-out infinite;
+  animation: scroll-fade 2s ease-in-out infinite;
 }
 
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.5; }
-  50% { transform: translateY(6px); opacity: 1; }
+@keyframes scroll-fade {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
-/* Mobile */
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .hero__content {
+    grid-template-columns: 1fr 320px;
+    gap: var(--s10);
+  }
+
+  .hero__photo-frame {
+    width: 280px;
+    height: 280px;
+  }
+}
+
 @media (max-width: 768px) {
-  .hero__content { padding-top: 7rem; }
-  .hero__bottom { display: none; }
-  .hero__cta { flex-wrap: wrap; gap: var(--s4); }
-  .hero__deco-shape { opacity: 0.5; }
+  .hero__content {
+    grid-template-columns: 1fr;
+    padding-top: 7rem;
+    text-align: center;
+  }
+
+  .hero__meta {
+    justify-content: center;
+  }
+
+  .hero__cta {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--s4);
+  }
+
+  .hero__tagline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Photo moves above text on mobile */
+  .hero__photo-col {
+    order: -1;
+  }
+
+  .hero__photo-frame {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero__photo-badge {
+    right: -8px;
+    bottom: 4px;
+  }
+
+  .hero__deco-shape {
+    opacity: 0.4;
+  }
+
+  .hero__scroll-cue {
+    display: none;
+  }
 }

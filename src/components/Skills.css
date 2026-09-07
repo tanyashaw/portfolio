@@ -1,3 +1,7 @@
+/* ============================================================
+   SKILLS — Polished Table with Hover Accents
+   ============================================================ */
+
 .skills { background: transparent; }
 
 .skills__header {
@@ -16,8 +20,11 @@
 
 .skills__intro { max-width: 40ch; align-self: end; padding-bottom: 4px; }
 
-/* Table */
-.skills__table { border-top: 1px solid var(--border-subtle); margin-bottom: var(--s8); }
+/* ── Table ── */
+.skills__table {
+  border-top: 1px solid var(--border-subtle);
+  margin-bottom: var(--s8);
+}
 
 .skills__table-header {
   display: grid;
@@ -36,39 +43,106 @@
   padding: var(--s6) 0;
   border-bottom: 1px solid var(--border-subtle);
   align-items: start;
+  position: relative;
   transition: all var(--duration-base) var(--ease-out);
-  border-radius: 0;
 }
 
+/* Accent left-border slide-in on hover */
+.skills__row::before {
+  content: "";
+  position: absolute;
+  left: -var(--section-px, 0px);
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--accent),
+    var(--accent-2)
+  );
+  border-radius: 0 2px 2px 0;
+  transition: width var(--duration-base) var(--ease-out);
+}
+
+.skills__row:hover::before { width: 3px; }
+
 .skills__row:hover {
-  background: rgba(255, 77, 135, 0.05);
-  margin: 0 calc(-1 * var(--section-px));
-  padding-left: var(--section-px);
-  padding-right: var(--section-px);
-  border-bottom: 1px solid var(--accent-border);
+  background: rgba(56, 189, 248, 0.03);
+  padding-left: var(--s4);
+  border-bottom-color: var(--accent-border);
+}
+
+/* Category dot + text */
+.skills__row-category {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.skills__category-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-spring),
+              box-shadow  var(--duration-base) var(--ease-out);
+}
+
+.skills__row:hover .skills__category-dot {
+  transform: scale(1.5);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .skills__category-text {
   font-family: var(--font-sans);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   transition: color var(--duration-base) var(--ease-out);
 }
 
 .skills__row:hover .skills__category-text { color: var(--accent); }
 
-.skills__plain-text { font-size: 0.875rem; color: var(--text-secondary); max-width: none; }
+.skills__plain-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  max-width: none;
+}
 
-.skills__footnote { color: var(--text-muted); padding-top: var(--s4); }
+/* Glowing tag hover */
+.skills__row .tag {
+  transition:
+    background    var(--duration-fast) var(--ease-out),
+    border-color  var(--duration-fast) var(--ease-out),
+    color         var(--duration-fast) var(--ease-out),
+    transform     var(--duration-fast) var(--ease-spring),
+    box-shadow    var(--duration-fast) var(--ease-out);
+}
+
+.skills__row .tag:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent-border);
+  color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.skills__footnote {
+  color: var(--text-muted);
+  padding-top: var(--s4);
+  font-style: italic;
+}
 
 @media (max-width: 1024px) {
   .skills__table-header, .skills__row { grid-template-columns: 160px 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
-  .skills__header { grid-template-columns: 1fr; gap: var(--s8); }
+  .skills__header          { grid-template-columns: 1fr; gap: var(--s8); }
   .skills__table-plain-label { display: none; }
-  .skills__table-header, .skills__row { grid-template-columns: 1fr; }
-  .skills__row-plain { display: none; }
+  .skills__table-header,
+  .skills__row             { grid-template-columns: 1fr; }
+  .skills__row-plain       { display: none; }
+  .skills__row:hover       { padding-left: var(--s2); }
 }
