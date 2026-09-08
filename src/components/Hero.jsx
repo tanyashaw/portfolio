@@ -196,11 +196,7 @@ export default function Hero() {
 
       </div>
 
-      {/* Scroll cue */}
-      <div className={`hero__scroll-cue ${loaded ? "hero__scroll-cue--visible" : ""}`} aria-hidden="true">
-        <div className="hero__scroll-line" />
-        <span className="hero__scroll-text label">scroll</span>
-      </div>
+
     </section>
   );
 }

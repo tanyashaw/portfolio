@@ -1,145 +1,80 @@
-import { useState, useRef, useCallback } from "react";
 import ScrollReveal from "./ScrollReveal";
 import "./ProjectCard.css";
 
-// 3D tilt hook
-function useTilt() {
-  const ref = useRef(null);
-
-  const handleMouseMove = useCallback((e) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `
-      perspective(var(--perspective))
-      rotateY(${x * 16}deg)
-      rotateX(${-y * 12}deg)
-      scale3d(1.02, 1.02, 1.02)
-    `;
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.transform = "perspective(var(--perspective)) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)";
-  }, []);
-
-  return { ref, handleMouseMove, handleMouseLeave };
-}
-
 export default function ProjectCard({ project, index }) {
-  const [hovered, setHovered] = useState(false);
-  const { ref, handleMouseMove, handleMouseLeave } = useTilt();
   const isEven = index % 2 === 0;
 
   return (
     <article
-      className={`project-card ${isEven ? "" : "project-card--reverse"}`}
+      className={`pc ${isEven ? "" : "pc--reverse"}`}
       aria-label={`Project: ${project.title}`}
     >
-      <div className="project-card__inner">
-        {/* 3D tilt visual block */}
-        <ScrollReveal delay={100} className="project-card__visual-wrap">
-          <div
-            ref={ref}
-            className={`project-card__visual ${hovered ? "project-card__visual--hovered" : ""}`}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onMouseEnter={() => setHovered(true)}
-            onMouseOut={() => setHovered(false)}
-            style={{
-              "--card-accent": project.color,
-              transition: hovered ? "none" : "transform 600ms var(--ease-out)",
-            }}
-          >
-            {/* Inner 3D card face */}
-            <div className="project-card__visual-inner">
-              {project.isPowerBI ? (
-                /* Power BI Dashboard Mockup Visual */
-                <div className="pbi-mock">
-                  <div className="pbi-mock__header">
-                    <span className="pbi-mock__logo">📊 Power BI Report</span>
-                    <span className="pbi-mock__live-dot">● LIVE DATA</span>
-                  </div>
-
-                  {/* KPI Cards inside visual */}
-                  {project.kpis && (
-                    <div className="pbi-mock__kpis">
-                      {project.kpis.map((kpi, kIdx) => (
-                        <div key={kIdx} className="pbi-mock__kpi">
-                          <span className="pbi-mock__kpi-label">{kpi.label}</span>
-                          <span className="pbi-mock__kpi-val">{kpi.value}</span>
-                          <span className="pbi-mock__kpi-change">{kpi.change}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Simulated Power BI Charts */}
-                  <div className="pbi-mock__chart">
-                    <div className="pbi-mock__bar" style={{ height: "60%" }} />
-                    <div className="pbi-mock__bar" style={{ height: "85%" }} />
-                    <div className="pbi-mock__bar" style={{ height: "45%" }} />
-                    <div className="pbi-mock__bar" style={{ height: "100%" }} />
-                    <div className="pbi-mock__bar" style={{ height: "75%" }} />
-                  </div>
-                </div>
+      <div className="pc__inner">
+        {/* Visual Picture Frame (Static & Clean) */}
+        <ScrollReveal delay={100} className="pc__visual-wrap">
+          <div className="pc__visual" style={{ "--accent-col": project.color }}>
+            <div className="pc__visual-face">
+              {project.image ? (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="pc__screenshot"
+                  loading="lazy"
+                />
               ) : (
-                /* Standard Abstract Geo Visual */
-                <div className="project-card__geo">
-                  <div className="project-card__geo-ring project-card__geo-ring--1" />
-                  <div className="project-card__geo-ring project-card__geo-ring--2" />
-                  <div className="project-card__geo-core" />
-                  <div className="project-card__geo-stars">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="project-card__geo-star" style={{ "--i": i }}>✦</span>
-                    ))}
+                <>
+                  <span className="pc__num-wm">{project.id}</span>
+                  <div className="pc__rings">
+                    <div className="pc__ring pc__ring--1" />
+                    <div className="pc__ring pc__ring--2" />
+                    <div className="pc__ring pc__ring--3" />
                   </div>
-                </div>
+                  <div className="pc__core" />
+                </>
               )}
-
-              {/* Category & Phase badge */}
-              <div className="project-card__badge">
-                <span className="label label--accent">{project.category}</span>
-              </div>
-
-              {/* Hover overlay */}
-              <div className={`project-card__hover-overlay ${hovered ? "visible" : ""}`}>
-                <span className="project-card__hover-cta">View Details ↗</span>
-              </div>
             </div>
           </div>
         </ScrollReveal>
 
-        {/* Content column */}
-        <div className="project-card__content">
-          <ScrollReveal delay={150}>
-            <div className="project-card__header">
-              <div className="project-card__milestone-tag">
-                <span className="project-card__phase-pill">{project.phaseLabel}</span>
-              </div>
-              <h3 className="project-card__title">{project.title}</h3>
-              <p className="project-card__tagline">{project.tagline}</p>
-            </div>
+        {/* Content */}
+        <div className="pc__content">
+          <ScrollReveal delay={120}>
+            <h3 className="pc__title">{project.title}</h3>
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <div className="project-card__stack">
-              <div className="tag-list">
-                {project.stack.map((t) => <span key={t} className="tag">{t}</span>)}
-              </div>
-            </div>
+            <p className="pc__note">{project.note}</p>
           </ScrollReveal>
+          {/* Functionalities Micro-Grid */}
+          {project.functionalities && project.functionalities.length > 0 && (
+            <ScrollReveal delay={240}>
+              <div className="pc__capabilities">
+                <div className="pc__cap-grid">
+                  {project.functionalities.map((func) => (
+                    <div
+                      key={func}
+                      className="pc__cap-item"
+                      style={{ "--accent-col": project.color }}
+                    >
+                      <span className="pc__cap-text">{func}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
 
-          <ScrollReveal delay={250}>
-            <div className="project-card__links">
-              {project.demo !== "#" && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-pill" style={{ fontSize: "0.75rem", padding: "0.5rem 1.25rem" }}>
-                  Live Demo ↗
-                </a>
-              )}
+          <ScrollReveal delay={280}>
+            <div className="pc__footer">
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pc__live-btn"
+                style={{ "--btn-color": project.color }}
+              >
+                Live Demo ↗
+              </a>
             </div>
           </ScrollReveal>
         </div>

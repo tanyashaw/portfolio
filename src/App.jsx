@@ -5,7 +5,6 @@ import Cursor from "./components/Cursor";
 import Background3D from "./components/Background3D";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import SectionDots from "./components/SectionDots";
 
 // Lazy-loaded: below the fold
 const Projects = lazy(() => import("./components/Projects"));
@@ -35,8 +34,6 @@ export default function App() {
       {/* Custom cursor — desktop only */}
       <Cursor />
 
-      {/* Section dot navigator — right edge */}
-      <SectionDots />
 
       {/* Navigation */}
       <Nav />

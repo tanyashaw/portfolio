@@ -1,6 +1,32 @@
 import ScrollReveal from "./ScrollReveal";
 import "./Skills.css";
 
+const techLogos = [
+  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+  { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "Vercel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" },
+  { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+  { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+  { name: "Scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+  { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
+];
+
+const iconMap = Object.fromEntries(techLogos.map((t) => [t.name, t.icon]));
+
 const skillGroups = [
   {
     category: "Development",
@@ -58,10 +84,24 @@ export default function Skills() {
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="body-text skills__intro">
-              Skills grouped by area of capability — not presented as a grid of logos, but as a practical picture of what I can build and how.
+              Skills grouped by area of capability — powered by an active ecosystem of modern tools, frameworks, and core technologies.
             </p>
           </ScrollReveal>
         </div>
+
+        {/* Sliding Technologies Marquee Banner */}
+        <ScrollReveal delay={250}>
+          <div className="skills__tech-marquee" aria-label="Technologies queue">
+            <div className="skills__tech-track">
+              {[...techLogos, ...techLogos, ...techLogos].map((tech, idx) => (
+                <div key={`${tech.name}-${idx}`} className="skills__tech-badge">
+                  <img src={tech.icon} alt="" className="skills__tech-icon" loading="lazy" />
+                  <span>{tech.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
 
         {/* Skill table */}
         <div className="skills__table">
@@ -76,7 +116,6 @@ export default function Skills() {
             <ScrollReveal key={category} delay={i * 60} direction={i % 2 === 0 ? "left" : "up"}>
               <div className="skills__row">
                 <div className="skills__row-category">
-                  <span className="skills__category-dot" aria-hidden="true" />
                   <span className="skills__category-text">{category}</span>
                 </div>
                 <div className="skills__row-plain">

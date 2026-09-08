@@ -1,4 +1,4 @@
-import ScrollReveal from "./ScrollReveal";
+﻿import ScrollReveal from "./ScrollReveal";
 import ProjectCard from "./ProjectCard";
 import { projects } from "../data/projects";
 import "./Projects.css";
@@ -10,7 +10,7 @@ export default function Projects() {
         {/* Section Label */}
         <ScrollReveal>
           <div className="section-label-row">
-            <span className="label">6-Month Internship Journey</span>
+            <span className="label">Selected Work</span>
           </div>
         </ScrollReveal>
 
@@ -18,14 +18,14 @@ export default function Projects() {
         <div className="projects__header">
           <ScrollReveal delay={100}>
             <h2 className="section-heading">
-              6 Months Internship.<br />
-              <em>What I Built & Delivered.</em>
+              Things I built.<br />
+              <em>Real projects. Live links.</em>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
             <p className="body-text projects__subtitle">
-              A progressive timeline of my 6-month software development internship — featuring executive Power BI dashboards, production-ready REST APIs, and end-to-end AI lead qualification systems.
+              A collection of live products built across full-stack development, AI/ML, healthcare, fintech, and transportation analytics.
             </p>
           </ScrollReveal>
         </div>

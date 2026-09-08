@@ -1,5 +1,5 @@
 /* ============================================================
-   SKILLS — Polished Table with Hover Accents
+   SKILLS — Polished Table with Hover Accents & Tech Marquee
    ============================================================ */
 
 .skills { background: transparent; }
@@ -9,7 +9,7 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--s12);
   align-items: end;
-  margin-bottom: var(--s16);
+  margin-bottom: var(--s8);
 }
 
 .skills__header h2 em {
@@ -19,6 +19,61 @@
 }
 
 .skills__intro { max-width: 40ch; align-self: end; padding-bottom: 4px; }
+
+/* ── Technologies Sliding Marquee Queue ── */
+.skills__tech-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  padding: 10px 0;
+  margin-bottom: var(--s12);
+}
+
+.skills__tech-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: skills-marquee-slide 25s linear infinite;
+}
+
+.skills__tech-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes skills-marquee-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+.skills__tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.skills__tech-badge:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.skills__tech-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
 
 /* ── Table ── */
 .skills__table {
@@ -110,7 +165,7 @@
   max-width: none;
 }
 
-/* Glowing tag hover */
+/* Glowing tag hover (legacy – kept for potential reuse) */
 .skills__row .tag {
   transition:
     background    var(--duration-fast) var(--ease-out),
@@ -126,6 +181,34 @@
   color: var(--accent);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+/* ── Lower Level Icon Badges (Static, Icon-only when available) ── */
+.skills__icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.skills__icon-badge:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.skills__icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
 
 .skills__footnote {
