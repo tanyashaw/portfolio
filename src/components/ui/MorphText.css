@@ -1,0 +1,67 @@
+/* === MORPH TEXT === */
+.morph-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  user-select: none;
+}
+
+/* Hidden SVG — just holds the filter definition */
+.morph-text__svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Words container — stacks both spans on top of each other */
+.morph-text__words-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  /* Enough height for the tallest word */
+  min-height: 1.1em;
+  width: 100%;
+}
+
+.morph-text__word {
+  grid-area: 1 / 1; /* overlap in CSS Grid */
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+  /* will-change keeps blur composited on GPU */
+  will-change: opacity, filter;
+}
+
+/* Subtext */
+.morph-text__subtext {
+  font-family: var(--font-sans);
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  animation: morph-subtext-in 1s var(--ease-out) 0.4s both;
+}
+
+@keyframes morph-subtext-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Reduced motion: just show the first word statically */
+@media (prefers-reduced-motion: reduce) {
+  .morph-text__word:last-child { display: none; }
+  .morph-text__word:first-child {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}

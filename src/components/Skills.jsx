@@ -1,135 +1,99 @@
 import ScrollReveal from "./ScrollReveal";
 import "./Skills.css";
 
-const techLogos = [
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
-  { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-  { name: "Vercel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" },
-  { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-  { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
-  { name: "Scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
-  { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
-];
-
-const iconMap = Object.fromEntries(techLogos.map((t) => [t.name, t.icon]));
-
-const skillGroups = [
+const SKILL_GROUPS = [
   {
-    category: "Development",
-    plain: "Core programming and web fundamentals",
-    technologies: ["Python", "JavaScript", "HTML", "CSS"],
+    id: "frontend",
+    group: "Frontend",
+    desc: "Building the interfaces users interact with",
+    chips: [
+      { label: "React",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { label: "HTML5",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+      { label: "CSS3",          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+      { label: "Tailwind",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+      { label: "Vite",          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
+      { label: "JavaScript",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+    ],
   },
   {
-    category: "Frontend",
-    plain: "Building the interfaces users interact with",
-    technologies: ["React", "Responsive UI", "API Integration", "Vite", "Vercel"],
+    id: "backend-data",
+    group: "Backend & Data",
+    desc: "Server-side logic, APIs, databases, and data analysis",
+    chips: [
+      { label: "Django",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+      { label: "FastAPI",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+      { label: "PostgreSQL",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+      { label: "Pandas",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+      { label: "Power BI",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg" },
+    ],
   },
   {
-    category: "Backend",
-    plain: "Server-side logic, APIs, and authentication",
-    technologies: ["Django", "REST APIs", "JWT Auth", "OAuth concepts", "Python"],
-  },
-  {
-    category: "Data & BI",
-    plain: "Transforming raw data into insights",
-    technologies: ["Pandas", "Power BI", "Data Analysis", "Data Visualization", "EDA"],
-  },
-  {
-    category: "Databases",
-    plain: "Structured data storage and querying",
-    technologies: ["PostgreSQL", "SQL", "Relational Models", "Django ORM"],
-  },
-  {
-    category: "Tools & Workflow",
-    plain: "The environment around writing code",
-    technologies: ["Git", "GitHub", "VS Code", "Virtual Environments", "Render", "Vercel"],
-  },
-  {
-    category: "Machine Learning",
-    plain: "Applying AI/ML concepts in real applications",
-    technologies: ["Scikit-learn", "Model Training", "Feature Engineering", "Classification"],
+    id: "tools",
+    group: "Tools & ML",
+    desc: "The ecosystem around building and shipping code",
+    chips: [
+      { label: "Git",           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+      { label: "GitHub",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+      { label: "VS Code",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+      { label: "Docker",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+      { label: "Node.js",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+      { label: "Scikit-learn",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+    ],
   },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="section skills">
+    <section id="skills" className="section skills" aria-labelledby="skills-heading">
       <div className="container">
+
         <ScrollReveal>
-          <div className="section-label-row">
-            <span className="label">Capabilities</span>
-          </div>
+          <span className="eyebrow">Capabilities</span>
         </ScrollReveal>
 
-        <div className="skills__header">
-          <ScrollReveal delay={100}>
-            <h2 className="section-heading">
-              What I work<br />
-              <em>with.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <p className="body-text skills__intro">
-              Skills grouped by area of capability — powered by an active ecosystem of modern tools, frameworks, and core technologies.
-            </p>
-          </ScrollReveal>
-        </div>
-
-        {/* Sliding Technologies Marquee Banner */}
-        <ScrollReveal delay={250}>
-          <div className="skills__tech-marquee" aria-label="Technologies queue">
-            <div className="skills__tech-track">
-              {[...techLogos, ...techLogos, ...techLogos].map((tech, idx) => (
-                <div key={`${tech.name}-${idx}`} className="skills__tech-badge">
-                  <img src={tech.icon} alt="" className="skills__tech-icon" loading="lazy" />
-                  <span>{tech.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <ScrollReveal delay={80}>
+          <h2 id="skills-heading" className="section-heading skills__heading">
+            What I work<br />
+            <em className="gold-italic">with.</em>
+          </h2>
         </ScrollReveal>
 
-        {/* Skill table */}
-        <div className="skills__table">
-          {/* Table header */}
-          <div className="skills__table-header">
-            <span className="label">Category</span>
-            <span className="label skills__table-plain-label">What it means</span>
-            <span className="label">Technologies</span>
-          </div>
+        <ScrollReveal delay={160}>
+          <p className="body-text skills__intro">
+            Skills grouped by area of capability — an active ecosystem of modern
+            tools, frameworks, and core technologies.
+          </p>
+        </ScrollReveal>
 
-          {skillGroups.map(({ category, plain, technologies }, i) => (
-            <ScrollReveal key={category} delay={i * 60} direction={i % 2 === 0 ? "left" : "up"}>
-              <div className="skills__row">
-                <div className="skills__row-category">
-                  <span className="skills__category-text">{category}</span>
+        {/* Chip groups */}
+        <div className="skills__groups">
+          {SKILL_GROUPS.map(({ id, group, desc, chips }, i) => (
+            <ScrollReveal key={id} delay={i * 80}>
+              <div className="skills__group">
+                <div className="skills__group-header">
+                  <h3 className="skills__group-name">{group}</h3>
+                  <p className="skills__group-desc meta-text">{desc}</p>
                 </div>
-                <div className="skills__row-plain">
-                  <span className="body-text skills__plain-text">{plain}</span>
-                </div>
-                <div className="skills__row-tags tag-list">
-                  {technologies.map((tech) => (
-                    <span key={tech} className="tag">{tech}</span>
+                <div className="skills__chips" role="list" aria-label={`${group} skills`}>
+                  {chips.map(({ label, icon }) => (
+                    <span key={label} className="chip chip--icon" role="listitem" title={label}>
+                      <img
+                        src={icon}
+                        alt={label}
+                        className="chip__icon"
+                        width="22"
+                        height="22"
+                        loading="lazy"
+                      />
+                      <span className="chip__label">{label}</span>
+                    </span>
                   ))}
                 </div>
               </div>
             </ScrollReveal>
           ))}
         </div>
+
       </div>
     </section>
   );

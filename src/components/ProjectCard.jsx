@@ -1,83 +1,67 @@
-import ScrollReveal from "./ScrollReveal";
 import "./ProjectCard.css";
 
-export default function ProjectCard({ project, index }) {
-  const isEven = index % 2 === 0;
+export default function ProjectCard({ project }) {
+  const tags = project.tags?.slice(0, 4) || project.functionalities?.slice(0, 4) || [];
 
   return (
     <article
-      className={`pc ${isEven ? "" : "pc--reverse"}`}
+      className="pcard"
       aria-label={`Project: ${project.title}`}
+      tabIndex="0"
     >
-      <div className="pc__inner">
-        {/* Visual Picture Frame (Static & Clean) */}
-        <ScrollReveal delay={100} className="pc__visual-wrap">
-          <div className="pc__visual" style={{ "--accent-col": project.color }}>
-            <div className="pc__visual-face">
-              {project.image ? (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="pc__screenshot"
-                  loading="lazy"
-                />
-              ) : (
-                <>
-                  <span className="pc__num-wm">{project.id}</span>
-                  <div className="pc__rings">
-                    <div className="pc__ring pc__ring--1" />
-                    <div className="pc__ring pc__ring--2" />
-                    <div className="pc__ring pc__ring--3" />
-                  </div>
-                  <div className="pc__core" />
-                </>
-              )}
-            </div>
+      {/* Thumbnail — always visible */}
+      <div className="pcard__thumb">
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.title} — project screenshot`}
+            className="pcard__img"
+            loading="lazy"
+            width="280"
+            height="175"
+            draggable="false"
+          />
+        ) : (
+          <div
+            className="pcard__img-placeholder"
+            style={{ background: project.color + "22" }}
+          >
+            <span style={{ color: project.color, fontFamily: "var(--font-serif)", fontSize: "1.5rem", opacity: 0.6 }}>
+              {project.id}
+            </span>
           </div>
-        </ScrollReveal>
+        )}
 
-        {/* Content */}
-        <div className="pc__content">
-          <ScrollReveal delay={120}>
-            <h3 className="pc__title">{project.title}</h3>
-          </ScrollReveal>
+        {/* Overlay with details — revealed on hover */}
+        <div className="pcard__overlay" aria-hidden="true">
+          <h3 className="pcard__title">{project.title}</h3>
+          <p className="pcard__desc">{project.note}</p>
 
-          <ScrollReveal delay={200}>
-            <p className="pc__note">{project.note}</p>
-          </ScrollReveal>
-          {/* Functionalities Micro-Grid */}
-          {project.functionalities && project.functionalities.length > 0 && (
-            <ScrollReveal delay={240}>
-              <div className="pc__capabilities">
-                <div className="pc__cap-grid">
-                  {project.functionalities.map((func) => (
-                    <div
-                      key={func}
-                      className="pc__cap-item"
-                      style={{ "--accent-col": project.color }}
-                    >
-                      <span className="pc__cap-text">{func}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
+          {tags.length > 0 && (
+            <div className="pcard__tags">
+              {tags.map((tag) => (
+                <span key={tag} className="pcard__tag">{tag}</span>
+              ))}
+            </div>
           )}
 
-          <ScrollReveal delay={280}>
-            <div className="pc__footer">
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pc__live-btn"
-                style={{ "--btn-color": project.color }}
-              >
-                Live Demo ↗
-              </a>
-            </div>
-          </ScrollReveal>
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pcard__demo"
+            aria-label={`View live demo of ${project.title}`}
+            tabIndex="-1"
+          >
+            Live Demo ↗
+          </a>
         </div>
+      </div>
+
+      {/* Title bar always visible below card */}
+      <div className="pcard__bar">
+        <span className="pcard__bar-title">{project.title}</span>
+        <span className="pcard__bar-cat">{project.category.split(" · ")[0]}</span>
       </div>
     </article>
   );

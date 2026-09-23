@@ -1,42 +1,43 @@
-﻿import ScrollReveal from "./ScrollReveal";
-import ProjectCard from "./ProjectCard";
+import ScrollReveal from "./ScrollReveal";
+import PerspectiveCarousel from "./ui/PerspectiveCarousel";
 import { projects } from "../data/projects";
 import "./Projects.css";
 
+// Map our project data to carousel item format
+const carouselItems = projects.map((p) => ({
+  src:   p.image,
+  title: p.title,
+  note:  p.note,
+  tags:  p.tags,
+  demo:  p.demo,
+  color: p.color,
+}));
+
 export default function Projects() {
   return (
-    <section id="projects" className="section projects">
+    <section id="projects" className="section projects" aria-labelledby="projects-heading">
+
+      {/* Section header stays in container */}
       <div className="container">
-        {/* Section Label */}
         <ScrollReveal>
-          <div className="section-label-row">
-            <span className="label">Selected Work</span>
-          </div>
+          <span className="eyebrow">Selected Work</span>
         </ScrollReveal>
-
-        {/* Section Header */}
-        <div className="projects__header">
-          <ScrollReveal delay={100}>
-            <h2 className="section-heading">
-              Things I built.<br />
-              <em>Real projects. Live links.</em>
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal delay={200}>
-            <p className="body-text projects__subtitle">
-              A collection of live products built across full-stack development, AI/ML, healthcare, fintech, and transportation analytics.
-            </p>
-          </ScrollReveal>
-        </div>
-
-        {/* Project cards list */}
-        <div className="projects__list">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </div>
+        <ScrollReveal delay={80}>
+          <h2 id="projects-heading" className="section-heading projects__heading">
+            Things I built.<br />
+            <em className="gold-italic">Real projects. Live links.</em>
+          </h2>
+        </ScrollReveal>
       </div>
+
+      {/* Full-bleed carousel — escapes the container intentionally */}
+      <PerspectiveCarousel
+        items={carouselItems}
+        defaultActiveIndex={3}
+        slideWidth={340}
+        loop
+      />
+
     </section>
   );
 }

@@ -1,0 +1,97 @@
+/* === EXPERIENCE === */
+.experience__heading {
+  margin-top: var(--s3);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* Timeline wrapper */
+.exp__timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+/* Vertical line */
+.exp__timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Entry wrapper (for ScrollReveal) */
+.exp__entry-wrap {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.exp__entry-wrap:last-child { margin-bottom: 0; }
+
+/* Entry layout */
+.exp__entry {
+  position: relative;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Gold dot */
+.exp__dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.exp__entry:hover .exp__dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 3px var(--accent), var(--glow-accent);
+}
+
+/* Content */
+.exp__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.exp__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.exp__period {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.exp__role {
+  font-size: 1.25rem;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.exp__company {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.exp__summary {
+  font-size: 15px;
+  max-width: 60ch;
+  margin-top: 4px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 767px) {
+  .exp__timeline { padding-left: 1.5rem; }
+  .exp__entry    { padding-left: 1.5rem; }
+  .exp__dot      { left: -2rem; }
+}

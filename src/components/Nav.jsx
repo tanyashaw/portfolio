@@ -1,90 +1,150 @@
-import { useEffect, useState } from "react";
-import { useScrollProgress } from "../hooks/useScrollProgress";
+import { useEffect, useRef, useState } from "react";
 import "./Nav.css";
 
-const navLinks = [
-  { label: "Journey", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "About", href: "#about" },
+const NAV_LINKS = [
+  { label: "About",    href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Journey",  href: "#journey" },
+  { label: "Contact",  href: "#contact" },
 ];
 
 export default function Nav() {
-  const { scrollY } = useScrollProgress();
-  const [activeSection, setActiveSection] = useState("");
-  const scrolled = scrollY > 60;
+  const [scrolled, setScrolled]       = useState(false);
+  const [progress, setProgress]       = useState(0);
+  const [activeSection, setActive]    = useState("");
+  const [menuOpen, setMenuOpen]       = useState(false);
+  const overlayRef                     = useRef(null);
+  const hamburgerRef                   = useRef(null);
 
-  // Theme state — persist in localStorage
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("portfolio-theme") || "light";
-  });
-
+  // Scroll: condensed nav + progress bar
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("portfolio-theme", theme);
-  }, [theme]);
+    const onScroll = () => {
+      const sy = window.scrollY;
+      setScrolled(sy > 80);
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docH > 0 ? (sy / docH) * 100 : 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-
+  // Active section detection
   useEffect(() => {
-    const sections = ["projects", "skills", "about", "contact", "hero"];
-    const observer = new IntersectionObserver(
+    const ids = ["hero", "about", "projects", "journey", "contact"];
+    const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    return () => obs.disconnect();
   }, []);
 
+  // Close menu on Esc
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape" && menuOpen) closeMenu(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  // Lock body scroll when menu open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const openMenu  = () => setMenuOpen(true);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    hamburgerRef.current?.focus();
+  };
+
   return (
-    <nav
-      className={`nav ${scrolled ? "nav--scrolled" : ""}`}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      {/* Left — gradient logo mark */}
-      <a href="#hero" className="nav__logo" aria-label="Back to top">
-        <div className="nav__logo-ring">
-          <span className="nav__logo-letter">T</span>
+    <>
+      {/* Scroll progress bar */}
+      <div
+        className="nav-progress"
+        style={{ width: `${progress}%` }}
+        aria-hidden="true"
+      />
+
+      <header className={`nav${scrolled ? " nav--scrolled" : ""}`} role="banner">
+        <div className="nav__inner container">
+
+          {/* Logo */}
+          <a href="#hero" className="nav__logo" aria-label="Tanya Shaw — back to top">
+            Tanya Shaw
+          </a>
+
+          {/* Desktop links */}
+          <nav className="nav__links" aria-label="Main navigation">
+            <ul role="list">
+              {NAV_LINKS.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className={`nav__link${activeSection === href.slice(1) ? " nav__link--active" : ""}`}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Hamburger */}
+          <div className="nav__right">
+            <button
+              ref={hamburgerRef}
+              className={`nav__hamburger${menuOpen ? " nav__hamburger--open" : ""}`}
+              onClick={openMenu}
+              aria-label="Open navigation menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-overlay"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
-      </a>
+      </header>
 
-      {/* Center — floating pill menu */}
-      <div className="nav__center">
-        <ul className="nav__links" role="list">
-          {navLinks.map(({ label, href }) => (
-            <li key={label}>
-              <a
-                href={href}
-                className={`nav__link ${activeSection === href.slice(1) ? "nav__link--active" : ""}`}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Mobile overlay */}
+      <div
+        id="mobile-overlay"
+        ref={overlayRef}
+        className={`nav-overlay${menuOpen ? " nav-overlay--open" : ""}`}
+        aria-hidden={!menuOpen}
+        role="dialog"
+        aria-label="Navigation menu"
+      >
+        {/* Backdrop */}
+        <div className="nav-overlay__backdrop" onClick={closeMenu} aria-hidden="true" />
 
-      {/* Right — theme toggle + CTA */}
-      <div className="nav__right">
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-        >
-          {theme === "dark" ? "☀️" : "🌙"}
-        </button>
-        <a href="#contact" className="nav__contact-btn">
-          ✦ Get in Touch
-        </a>
+        <nav className="nav-overlay__content" aria-label="Mobile navigation">
+          <button
+            className="nav-overlay__close"
+            onClick={closeMenu}
+            aria-label="Close navigation menu"
+          >
+            ✕
+          </button>
+          <ul role="list" className="nav-overlay__list">
+            {NAV_LINKS.map(({ label, href }, i) => (
+              <li key={label} style={{ "--i": i }}>
+                <a
+                  href={href}
+                  className="nav-overlay__link"
+                  onClick={closeMenu}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+        </nav>
       </div>
-    </nav>
+    </>
   );
 }

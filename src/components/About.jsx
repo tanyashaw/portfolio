@@ -1,77 +1,62 @@
 import ScrollReveal from "./ScrollReveal";
 import "./About.css";
 
-const statements = [
-  {
-    label: "01",
-    text: "I build web applications from the ground up — handling both the frontend interface users see and the backend logic that makes it work.",
-  },
-  {
-    label: "02",
-    text: "My work sits at the intersection of software engineering and data. I'm comfortable writing Python backends, building REST APIs, working with databases, and integrating machine learning models into real applications.",
-  },
-  {
-    label: "03",
-    text: "I care about the complete picture — not just whether something works, but whether it's clear, maintainable, and actually useful to the person using it.",
-  },
-  {
-    label: "04",
-    text: "Each project in this portfolio was built to solve a real problem. The goal is always to turn an idea into a working product.",
-  },
-];
-
-const stats = [
-  { value: "6", label: "Projects Built" },
-  { value: "5+", label: "Technologies" },
-  { value: "Full", label: "Stack Capable" },
-  { value: "ML +", label: "Web Dev" },
-];
-
 export default function About() {
   return (
-    <section id="about" className="section about">
+    <section id="about" className="section about" aria-labelledby="about-heading">
       <div className="container">
-        {/* Section label */}
+
+        {/* Eyebrow */}
         <ScrollReveal>
-          <div className="section-label-row">
-            <span className="label">About</span>
-          </div>
+          <span className="eyebrow">About</span>
         </ScrollReveal>
 
+        {/* Heading + Body — two columns filling the full width */}
         <div className="about__layout">
-          {/* Left — heading */}
-          <div className="about__left">
-          <ScrollReveal delay={100} direction="left">
-            <h2 className="section-heading about__heading">
+
+          {/* Left — sticky heading */}
+          <ScrollReveal delay={80}>
+            <h2 id="about-heading" className="section-heading about__heading">
               The person<br />
-              <em>behind the projects.</em>
+              <em className="gold-italic">behind the projects.</em>
             </h2>
           </ScrollReveal>
 
-            {/* Stats */}
-            <ScrollReveal delay={200}>
-              <div className="about__stats">
-                {stats.map(({ value, label }) => (
-                  <div key={label} className="about__stat">
-                    <span className="about__stat-value">{value}</span>
-                    <span className="about__stat-label label">{label}</span>
-                  </div>
-                ))}
+          {/* Right — body text + currently */}
+          <div className="about__right">
+            <ScrollReveal delay={160}>
+              <p className="body-text">
+                I build web applications from the ground up — handling both the
+                frontend interface users see and the backend logic that makes it
+                work. My work sits at the intersection of software engineering
+                and data: Python backends, REST APIs, relational databases, and
+                machine learning models integrated into real, production
+                products.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={240}>
+              <p className="body-text">
+                I care about the complete picture — not just whether something
+                works, but whether it's clear, maintainable, and genuinely
+                useful to the person using it. Every project I take on is built
+                to solve a real problem, turning an idea into a working product.
+              </p>
+            </ScrollReveal>
+
+            {/* Currently list */}
+            <ScrollReveal delay={320}>
+              <div className="about__currently">
+                <span className="eyebrow" style={{ marginBottom: "var(--s3)" }}>Currently</span>
+                <ul className="about__currently-list">
+                  <li>Building AI-powered web tools and full-stack applications</li>
+                  <li>Exploring LLM integration patterns in production apps</li>
+                  <li>Open to freelance projects and full-time opportunities</li>
+                </ul>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Right — statements */}
-          <div className="about__right">
-            {statements.map(({ label, text }, i) => (
-              <ScrollReveal key={label} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="about__statement">
-                  <span className="about__statement-num label label--accent">{label}</span>
-                  <p className="body-text body-text--large">{text}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>

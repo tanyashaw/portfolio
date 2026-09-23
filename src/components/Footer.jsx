@@ -5,34 +5,54 @@ const year = new Date().getFullYear();
 export default function Footer() {
   return (
     <footer className="footer" role="contentinfo">
-      {/* Subtle dot strip at top */}
-      <div className="footer__dot-strip" aria-hidden="true">
-        <svg className="footer__dots" viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid slice">
-          {Array.from({ length: 50 }).map((_, c) =>
-            Array.from({ length: 4 }).map((_, r) => (
-              <circle
-                key={`${c}-${r}`}
-                cx={c * 26 + 13}
-                cy={r * 14 + 7}
-                r="1.5"
-                fill="rgba(56,189,248,0.2)"
-              />
-            ))
-          )}
-        </svg>
-      </div>
-
       <div className="container footer__inner">
-        {/* Left */}
-        <div className="footer__left">
+
+        {/* Col 1 — Name + tagline */}
+        <div className="footer__col footer__col--brand">
           <span className="footer__name">Tanya Shaw</span>
-          <span className="label footer__year">© {year}</span>
+          <span className="footer__one-liner">
+            Full-stack engineer &amp; AI/ML developer
+          </span>
         </div>
 
-        {/* Center — tagline */}
-        <p className="footer__tagline label">
-          Built with React · Designed with intention
-        </p>
+        {/* Col 2 — Social links */}
+        <div className="footer__col footer__col--links" aria-label="Social links">
+          <a
+            href="https://github.com/tanyashaw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__link"
+            aria-label="GitHub"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/tanya-shaw/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__link"
+            aria-label="LinkedIn"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:tanyashaw@virtualemployee.com"
+            className="footer__link"
+            aria-label="Email"
+          >
+            Email
+          </a>
+        </div>
+
+        {/* Col 3 — Copyright */}
+        <div className="footer__col footer__col--copy">
+          <span className="footer__copy">
+            © {year} Tanya Shaw
+          </span>
+          <span className="footer__built">
+            Built with React · Designed with intention
+          </span>
+        </div>
 
       </div>
     </footer>
