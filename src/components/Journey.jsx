@@ -57,20 +57,22 @@ const JOURNEY = [
     month: "July 2025",
     type: "data",
     typeLabel: "Data & BI",
-    title: "Power BI Dashboard — I",
-    desc: "Designed interactive Power BI dashboards with DAX-powered KPIs, dynamic slicers, and drill-through capabilities for sales performance and operational reporting.",
+    title: "Phone Repair Analytics",
+    desc: "Designed interactive Power BI dashboard analyzing phone repair services, device failure breakdown, turnaround time, and repair cost metrics.",
     tags: ["Power BI", "DAX", "Data Viz", "Business Intelligence"],
     link: null,
+    pbixFile: "/dashboards/phone_repair_analytics.pbix",
   },
   {
     id: "j-aug",
     month: "August 2025",
     type: "data",
     typeLabel: "Data & BI",
-    title: "Power BI Dashboard — II",
-    desc: "Built a second Power BI reporting suite focused on executive-level analytics — trend analysis, forecasting visuals, and multi-source data model integration using Power Query.",
-    tags: ["Power BI", "Power Query", "EDA", "Forecasting"],
+    title: "Sales Superstore Analytics",
+    desc: "Built a comprehensive Power BI sales intelligence dashboard tracking revenue, regional profitability, customer segmentation, and order fulfillment.",
+    tags: ["Power BI", "DAX", "Sales Analytics", "Executive KPI"],
     link: null,
+    pbixFile: "/dashboards/sales_superstore_analytics.pbix",
   },
 ];
 
@@ -113,7 +115,7 @@ export default function Journey() {
           {/* Vertical connecting line */}
           <div className="journey__line" aria-hidden="true" />
 
-          {JOURNEY.map(({ id, month, type, typeLabel, title, desc, tags, link }, i) => (
+          {JOURNEY.map(({ id, month, type, typeLabel, title, desc, tags, link, pbixFile }, i) => (
             <div key={id} className="journey__row">
 
               {/* Left — dot column */}
@@ -141,16 +143,33 @@ export default function Journey() {
                     ))}
                   </div>
 
-                  {link && (
-                    <a
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="journey__link"
-                    >
-                      View project →
-                    </a>
-                  )}
+                  <div className="journey__actions">
+                    {link && (
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="journey__link"
+                      >
+                        View project →
+                      </a>
+                    )}
+
+                    {pbixFile && (
+                      <a
+                        href={pbixFile}
+                        download
+                        className="journey__download"
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "4px" }}>
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download .PBIX ⬇
+                      </a>
+                    )}
+                  </div>
 
                 </div>
               </ScrollReveal>

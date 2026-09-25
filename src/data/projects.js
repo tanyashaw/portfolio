@@ -47,4 +47,27 @@ export const projects = [
     functionalities: ["Healthcare", "Medicine", "Supply Chain", "Traceability"],
     tags: ["Healthcare", "Supply Chain", "Serialization", "Auth"],
   },
+  {
+    id: "05",
+    slug: "phone-repair-analytics",
+    title: "Phone Repair Analytics",
+    category: "Power BI · Business Intelligence",
+    note: "Interactive Power BI dashboard analyzing phone repair services, device failure breakdown, turn-around time, and repair cost metrics.",
+    pbixFile: "/dashboards/phone_repair_analytics.pbix",
+    color: "#F59E0B",
+    functionalities: ["Power BI", "DAX", "Business Intelligence", "Repair Analytics"],
+    tags: ["Power BI", "DAX", "Analytics", "Dashboard"],
+  },
+  {
+    id: "06",
+    slug: "sales-superstore-analytics",
+    title: "Sales Superstore Analytics",
+    category: "Power BI · Sales Intelligence",
+    note: "Comprehensive Power BI sales intelligence dashboard tracking revenue, regional profitability, customer segmentation, and order fulfillment.",
+    pbixFile: "/dashboards/sales_superstore_analytics.pbix",
+    color: "#6366F1",
+    functionalities: ["Power BI", "DAX", "Sales Analytics", "Executive KPI"],
+    tags: ["Power BI", "DAX", "Sales", "KPI"],
+  },
 ];
+

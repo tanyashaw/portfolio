@@ -5,12 +5,13 @@ import "./Projects.css";
 
 // Map our project data to carousel item format
 const carouselItems = projects.map((p) => ({
-  src:   p.image,
-  title: p.title,
-  note:  p.note,
-  tags:  p.tags,
-  demo:  p.demo,
-  color: p.color,
+  src:      p.image,
+  title:    p.title,
+  note:     p.note,
+  tags:     p.tags,
+  demo:     p.demo,
+  pbixFile: p.pbixFile,
+  color:    p.color,
 }));
 
 export default function Projects() {

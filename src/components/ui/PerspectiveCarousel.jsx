@@ -173,19 +173,38 @@ export default function PerspectiveCarousel({
                         ))}
                       </div>
                     )}
-                    {item.demo && (
-                      <a
-                        href={item.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="pc-carousel__demo"
-                        tabIndex={isActive ? 0 : -1}
-                        aria-label={`Open live demo of ${item.title}`}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Live Demo ↗
-                      </a>
-                    )}
+                    <div className="pc-carousel__actions">
+                      {item.demo && (
+                        <a
+                          href={item.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="pc-carousel__demo"
+                          tabIndex={isActive ? 0 : -1}
+                          aria-label={`Open live demo of ${item.title}`}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Live Demo ↗
+                        </a>
+                      )}
+                      {item.pbixFile && (
+                        <a
+                          href={item.pbixFile}
+                          download
+                          className="pc-carousel__download"
+                          tabIndex={isActive ? 0 : -1}
+                          aria-label={`Download Power BI file for ${item.title}`}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "4px" }}>
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                          </svg>
+                          Download .PBIX
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
